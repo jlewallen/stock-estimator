@@ -1,0 +1,9 @@
+node_modules/
+npm-debug.log
+bundle.js
+.idea
+*.swp
+*.csv
+money.iml
+coverage
+backend/backend.config.js
