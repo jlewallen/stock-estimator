@@ -28,12 +28,14 @@ class LayoutPage extends Component {
         const { stockSets, cutLists, currentStockSet, currentCutList, buy } = this.props;
 
         return (
-            <div className="container">
+            <div className="container-fluid">
                 <div className="row">
                     <div className="col-md-6">
+                        <center><h4>Cut Lists</h4></center>
                         <CutListPicker cutLists={cutLists} onSelected={this.handlePickCutList} />
                     </div>
                     <div className="col-md-6">
+                        <center><h4>Stock Sets</h4></center>
                         <StockSetPicker stockSets={stockSets} onSelected={this.handlePickStockSet} />
                     </div>
                 </div>
