@@ -11,7 +11,7 @@ export class CutListEditor extends Component {
 
         if (index >= 0) {
             const newCutList = _.cloneDeep(cutList);
-            newCutList.available.splice(index, 1);
+            newCutList.necessary.splice(index, 1);
             onChange(newCutList);
         }
     }
@@ -62,7 +62,7 @@ export class CutListEditor extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                    {cutList.necessary.map((board, index) => this.renderRow(board))}
+                    {cutList.necessary.map((board, index) => this.renderRow(board, index))}
                     {this.renderRow({ id: _.uniqueId('b') }, -1)}
                 </tbody>
             </table>
