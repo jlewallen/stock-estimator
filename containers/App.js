@@ -12,6 +12,7 @@ class App extends Component {
         const { children } = this.props;
         return (
             <div>
+                <Link to={'/layout'}>Layout</Link>
                 {children}
             </div>
         );
