@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
+import classNames from 'classnames';
+
 export class CutListEditor extends Component {
     constructor(props) {
         super(props);
@@ -32,8 +34,13 @@ export class CutListEditor extends Component {
             };
         };
 
+        const classes = classNames ({
+            'hovering': board.hovering,
+            'unavailable' : board.unavailable
+        });
+
         return (
-            <tr key={board.id} ng-class=" 'hovering': board.hovering, 'unavailable' : board.unavailable ">
+            <tr key={board.id} classNames={classes}>
                 <td><input type="number" className="col-xs-2 form-control" defaultValue={board.quantity} onBlur={bindControl('quantity', v => Number(v))} /></td>
                 <td><input type="text"   className="col-xs-2 form-control" defaultValue={board.name} onBlur={bindControl('name', v => v)} /></td>
                 <td><input type="number" className="col-xs-2 form-control" defaultValue={board.thickness} onBlur={bindControl('thickness', v => Number(v))} /></td>
