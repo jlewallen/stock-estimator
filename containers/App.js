@@ -12,6 +12,9 @@ class App extends Component {
         const { children } = this.props;
         return (
             <div>
+                <div className="container">
+                    <h3>Stock Estimator</h3>
+                </div>
                 {children}
             </div>
         );
