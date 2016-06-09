@@ -11,7 +11,7 @@ export class CutListPicker extends Component {
         const { cutLists, onSelected } = this.props;
 
         return (
-            <select className="form-control" onChange={(e) => onSelected(_(cutLists).filter({ id: Number(e.target.value) }).first())}>
+            <select className="form-control" onChange={(e) => onSelected(_(cutLists).filter({ id: e.target.value }).first())}>
                 <option value=""></option>
                 {cutLists.map(cl => (<option key={cl.id} value={cl.id}>{cl.name}</option>))}
             </select>

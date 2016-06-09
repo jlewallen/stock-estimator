@@ -62,3 +62,25 @@ export function hoverOverBoards(boards) {
         });
     };
 }
+
+export const NEW_STOCK_SET = 'newStockSet';
+
+export function newStockSet(template) {
+    return (dispatch, getState) => {
+        dispatch({
+            type: NEW_STOCK_SET,
+            template: template
+        });
+    };
+}
+
+export const NEW_CUT_LIST = 'newCutList';
+
+export function newCutList(template) {
+    return (dispatch, getState) => {
+        dispatch({
+            type: NEW_CUT_LIST,
+            template: template
+        });
+    };
+}

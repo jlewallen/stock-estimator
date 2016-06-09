@@ -29,20 +29,20 @@ var dutchChest = assignColor([
 ]);
 
 const defaultCutLists = [
-    { id: 1, name: 'Dutch Tool Chest', necessary: dutchChest },
-    { id: 2, name: 'Frame Saw', necessary: frameSaw }
+    { id: _.uniqueId('cl'), name: 'Dutch Tool Chest', necessary: dutchChest },
+    { id: _.uniqueId('cl'), name: 'Frame Saw', necessary: frameSaw }
 ];
 
 const defaultStockSets = [
-    { id: 1, name: 'Home Depot - Select Pine', available: [
+    { id: _.uniqueId('ss'), name: 'Home Depot - Select Pine', available: [
         newBoard({ thickness: 0.75, width: 11.25, length: 96 }),
         newBoard({ thickness: 0.5, width: 4, length: 36 })
     ]},
-    { id: 2, name: 'Home Depot - Construction', available: [
+    { id: _.uniqueId('ss'), name: 'Home Depot - Construction', available: [
         newBoard({ thickness: 1.75, width: 12, length: 96 }),
         newBoard({ thickness: 1.75, width: 10, length: 96 })
     ]},
-    { id: 3, name: 'Hardwood', available: [
+    { id: _.uniqueId('ss'), name: 'Hardwood', available: [
         newBoard({ thickness: 0.750, width: 6, length: 96 }),
         newBoard({ thickness: 1.625, width: 6, length: 96 })
     ]}
@@ -52,12 +52,30 @@ function nothing(state = {}, action = {}) {
     return state;
 }
 
-function stockSets(state = [], action = {}) {
-    return defaultStockSets;
+function stockSets(state = null, action = {}) {
+    switch (action.type) {
+        case ActionTypes.NEW_STOCK_SET:
+            const newStockSet = _.extend({
+                id: _.uniqueId('ss'),
+                available: []
+            }, action.template);
+            return [newStockSet, ...state];
+        default:
+            return state || defaultStockSets;
+    }
 }
 
-function cutLists(state = [], action = {}) {
-    return defaultCutLists;
+function cutLists(state = null, action = {}) {
+    switch (action.type) {
+        case ActionTypes.NEW_CUT_LIST:
+            const newCutList = _.extend({
+                id: _.uniqueId('cl'),
+                necessary: []
+            }, action.template);
+            return [newCutList, ...state];
+        default:
+            return state || defaultCutLists;
+    }
 }
 
 function currentCutList(state = {}, action = {}) {

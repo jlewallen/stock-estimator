@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
+import _ from 'lodash';
+
 export class StockSetPicker extends Component {
     constructor(props) {
         super(props);
@@ -9,7 +11,7 @@ export class StockSetPicker extends Component {
         const { stockSets, onSelected } = this.props;
 
         return (
-            <select className="form-control" onChange={(e) => onSelected(_(stockSets).filter({ id: Number(e.target.value) }).first())}>
+            <select className="form-control" onChange={(e) => onSelected(_(stockSets).filter({ id: e.target.value }).first())}>
                 <option value=""></option>
                 {stockSets.map(ss => (<option key={ss.id} value={ss.id}>{ss.name}</option>))}
             </select>
