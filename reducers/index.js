@@ -70,7 +70,14 @@ function currentCutList(state = {}, action = {}) {
             cutList.necessary.forEach(necessary => {
                 necessary.unavailable = unavailable[necessary.id] != null;
             });
-            console.log(cutList);
+            return cutList;
+        }
+        case ActionTypes.HOVERING_OVER_BOARDS: {
+            const cutList = _.cloneDeep(state);
+            const boards = _.groupBy(action.boards, 'id');
+            cutList.necessary.forEach(necessary => {
+                necessary.hovering = boards[necessary.id] != null;
+            });
             return cutList;
         }
         default:
@@ -93,9 +100,8 @@ function buy(state = { buy: null, stockSet: {}, cutList: {} }, action = {}) {
             return {};
         case ActionTypes.SELECT_STOCK_SET:
             return {};
-        case ActionTypes.PLAN_CUTS_START: {
+        case ActionTypes.PLAN_CUTS_START:
             return {};
-        }
         case ActionTypes.PLAN_CUTS_SUCCESS: {
             return _.extend(action.buy, {
                 id: _.uniqueId("plan")

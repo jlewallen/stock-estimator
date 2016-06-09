@@ -4,7 +4,7 @@ import { BoardDiagram } from './BoardDiagram';
 
 export class CutPlan extends Component {
     render() {
-        const { plan } = this.props;
+        const { plan, onHoverOverBoards } = this.props;
 
         return (
             <div>
@@ -15,7 +15,7 @@ export class CutPlan extends Component {
                                 <div key={board.id} className="board-diagram">
                                     <p>{board.thickness} x {board.length}</p>
                                     <p>{board.efficiency.toFixed(2)}%</p>
-                                    <BoardDiagram board={board} allBoards={plan.boards} />
+                                    <BoardDiagram board={board} allBoards={plan.boards} onHoverOverBoards={boards => onHoverOverBoards(boards)}/>
                                 </div>
                             ))}
                         </div>
@@ -58,5 +58,6 @@ export class CutPlan extends Component {
 }
 
 CutPlan.propTypes = {
-    plan: PropTypes.object.isRequired
+    plan: PropTypes.object.isRequired,
+    onHoverOverBoards: PropTypes.func.isRequired
 };

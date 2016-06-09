@@ -51,3 +51,14 @@ export function planCuts(stockSet, cutList) {
         });
     };
 }
+
+export const HOVERING_OVER_BOARDS = 'hoveringOverBoards';
+
+export function hoverOverBoards(boards) {
+    return (dispatch, getState) => {
+        dispatch({
+            type: HOVERING_OVER_BOARDS,
+            boards: boards
+        });
+    };
+}
