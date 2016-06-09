@@ -64,6 +64,15 @@ function currentCutList(state = {}, action = {}) {
     switch (action.type) {
         case ActionTypes.SELECT_CUT_LIST:
             return _.cloneDeep(action.cutList);
+        case ActionTypes.PLAN_CUTS_SUCCESS: {
+            const cutList = _.cloneDeep(state);
+            const unavailable = _.groupBy(action.buy.unavailable, 'id');
+            cutList.necessary.forEach(necessary => {
+                necessary.unavailable = unavailable[necessary.id] != null;
+            });
+            console.log(cutList);
+            return cutList;
+        }
         default:
             return state;
     }
@@ -81,7 +90,9 @@ function currentStockSet(state = {}, action = {}) {
 function buy(state = { buy: null, stockSet: {}, cutList: {} }, action = {}) {
     switch (action.type) {
         case ActionTypes.SELECT_CUT_LIST:
+            return {};
         case ActionTypes.SELECT_STOCK_SET:
+            return {};
         case ActionTypes.PLAN_CUTS_START: {
             return {};
         }

@@ -34,13 +34,13 @@ export class CutListEditor extends Component {
             };
         };
 
-        const classes = classNames ({
-            'hovering': board.hovering,
-            'unavailable' : board.unavailable
+        const classes = classNames({
+            hovering: board.hovering,
+            unavailable : board.unavailable
         });
 
         return (
-            <tr key={board.id} classNames={classes}>
+            <tr key={board.id} className={classes}>
                 <td><input type="number" className="col-xs-2 form-control" defaultValue={board.quantity} onBlur={bindControl('quantity', v => Number(v))} /></td>
                 <td><input type="text"   className="col-xs-2 form-control" defaultValue={board.name} onBlur={bindControl('name', v => v)} /></td>
                 <td><input type="number" className="col-xs-2 form-control" defaultValue={board.thickness} onBlur={bindControl('thickness', v => Number(v))} /></td>
