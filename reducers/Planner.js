@@ -202,7 +202,8 @@ export class Planner {
 
         return {
             boards: _.map(this.buy, (board) => this.calculateBoardEfficiency(board)),
-            purchase: this.getPurchaseList(this.buy)
+            purchase: this.getPurchaseList(this.buy),
+            unavailable: _.filter(necessary, { unavailable: true })
         };
     }
 }

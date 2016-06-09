@@ -5,9 +5,11 @@ import routes from '../routes';
 import thunk from 'redux-thunk';
 import api from '../middleware/api';
 import createLogger from 'redux-logger';
+import combineActionsMiddleware from 'redux-combine-actions';
 import rootReducer from '../reducers';
 
 const finalCreateStore = compose(
+    applyMiddleware(combineActionsMiddleware),
     applyMiddleware(thunk, api),
     reduxReactRouter({routes, createHistory}),
     applyMiddleware(createLogger())

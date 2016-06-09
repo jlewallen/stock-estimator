@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { selectStockSet, selectCutList } from '../actions';
+import { selectStockSet, selectCutList, planCuts } from '../actions';
 
 import { CutListPicker } from '../components/CutListPicker';
 import { CutListEditor } from '../components/CutListEditor';
@@ -14,6 +14,17 @@ class LayoutPage extends Component {
         super(props);
         this.handlePickStockSet = this.handlePickStockSet.bind(this);
         this.handlePickCutList = this.handlePickCutList.bind(this);
+    }
+
+    tryAndPlan(nextProps)  {
+        const { currentStockSet, currentCutList, planCuts, buy } = nextProps;
+        if (!buy.id && currentStockSet.id && currentCutList.id) {
+            planCuts(currentStockSet, currentCutList);
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.tryAndPlan(nextProps);
     }
 
     handlePickStockSet(stockSet) {
@@ -49,7 +60,7 @@ class LayoutPage extends Component {
                     </div>
                 </div>
 
-                {buy ? <CutPlan plan={buy} /> : <div/>}
+                {buy.id ? <CutPlan plan={buy} /> : <div/>}
             </div>
         );
     }
@@ -69,11 +80,12 @@ function mapStateToProps(state) {
         cutLists: state.cutLists,
         currentCutList: state.currentCutList,
         currentStockSet: state.currentStockSet,
-        buy: state.buy.buy
+        buy: state.buy
     };
 }
 
 export default connect(mapStateToProps, {
     selectCutList,
-    selectStockSet
+    selectStockSet,
+    planCuts
 })(LayoutPage);

@@ -36,6 +36,7 @@
     "react-redux": "^4.4.5",
     "react-router": "^1.0.3",
     "redux": "^3.5.2",
+    "redux-combine-actions": "^0.1.2",
     "redux-logger": "^2.6.1",
     "redux-promise-middleware": "^3.0.0",
     "redux-router": "^1.0.0-beta8",

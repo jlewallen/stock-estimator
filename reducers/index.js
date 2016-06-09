@@ -4,7 +4,6 @@ import { routerStateReducer as router } from 'redux-router';
 import { combineReducers } from 'redux';
 
 import { assignColor } from './colors';
-import { Planner } from './Planner';
 
 function newBoard(obj) {
     return _.extend(obj, { id: _.uniqueId('b') });
@@ -79,23 +78,17 @@ function currentStockSet(state = {}, action = {}) {
     }
 }
 
-function plan(stockSet, cutList) {
-    if (_.isUndefined(stockSet.available) || _.isUndefined(cutList.necessary)) {
-        return null;
-    }
-    const planner = new Planner();
-    return planner.calculate(stockSet.available, cutList.necessary);
-}
-
 function buy(state = { buy: null, stockSet: {}, cutList: {} }, action = {}) {
     switch (action.type) {
-        case ActionTypes.SELECT_CUT_LIST: {
-            const readyToPlan = _.extend({}, state, { cutList: _.cloneDeep(action.cutList) });
-            return _.extend(readyToPlan, { buy: plan(readyToPlan.stockSet, readyToPlan.cutList) });
+        case ActionTypes.SELECT_CUT_LIST:
+        case ActionTypes.SELECT_STOCK_SET:
+        case ActionTypes.PLAN_CUTS_START: {
+            return {};
         }
-        case ActionTypes.SELECT_STOCK_SET: {
-            const readyToPlan = _.extend({}, state, { stockSet: _.cloneDeep(action.stockSet) });
-            return _.extend(readyToPlan, { buy: plan(readyToPlan.stockSet, readyToPlan.cutList) });
+        case ActionTypes.PLAN_CUTS_SUCCESS: {
+            return _.extend(action.buy, {
+                id: _.uniqueId("plan")
+            });
         }
         default:
             return state;
