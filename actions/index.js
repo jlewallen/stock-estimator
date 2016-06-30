@@ -84,3 +84,62 @@ export function newCutList(template) {
         });
     };
 }
+
+export const EXPORT_ALL = 'exportAll';
+
+export function clearAll() {
+    return (dispatch, getState) => {
+        dispatch({
+            type: EXPORT_ALL,
+            data: {
+                stockSets: getState().stockSets,
+                cutLists: getState().cutLists
+            }
+        });
+    };
+}
+
+export const IMPORT_STOCK_SET = 'importStockSet';
+export const IMPORT_CUT_LIST = 'importCutList';
+
+function importAnythingWeFind(dispatch, data) {
+    if (_.isArray(data.stockSets)) {
+        _.forEach(data.stockSets, item => importAnythingWeFind(dispatch, item));
+    }
+    if (_.isArray(data.cutLists)) {
+        _.forEach(data.cutLists, item => importAnythingWeFind(dispatch, item));
+    }
+    if (_.isArray(data.cutList)) {
+        dispatch({
+            type: IMPORT_CUT_LIST,
+            cutList: data.cutList
+        });
+    }
+    if (_.isArray(data.stockSet)) {
+        dispatch({
+            type: IMPORT_STOCK_SET,
+            stockSet: data.stockSet
+        });
+    }
+}
+
+export function importAnything(data) {
+    return (dispatch, getState) => {
+        if (_.isArray(data)) {
+            _.forEach(data, item => importAnythingWeFind(dispatch, item));
+        }
+        else {
+            importAnythingWeFind(dispatch, item)
+        }
+    };
+}
+
+export const CLEAR_ALL = 'clearAll';
+
+export function clearAll() {
+    return (dispatch, getState) => {
+        dispatch({
+            type: CLEAR_ALL
+        });
+    };
+}

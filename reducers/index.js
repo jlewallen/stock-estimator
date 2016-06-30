@@ -9,11 +9,11 @@ function newBoard(obj) {
     return _.extend(obj, { id: _.uniqueId('b') });
 }
 
-var frameSaw = assignColor([
+const frameSaw = assignColor([
     newBoard({ quantity: 2, thickness: 1.625, width: 1.375, length: 66, name: "" }),
     newBoard({ quantity: 2, thickness: 1.625, width: 3, length: 24, name: "" }),
 ]);
-var dutchChest = assignColor([
+const dutchChest = assignColor([
     newBoard({ quantity: 2, thickness: 0.75, width: 11.25, length: 30.125, name: "Sides" }),
     newBoard({ quantity: 1, thickness: 0.75, width: 11.25, length: 27, name: "Bottom" }),
     newBoard({ quantity: 2, thickness: 0.75, width: 11.25, length: 26, name: "Shelves" }),
@@ -48,18 +48,24 @@ const defaultStockSets = [
     ]}
 ];
 
-function nothing(state = {}, action = {}) {
-    return state;
-}
-
 function stockSets(state = null, action = {}) {
     switch (action.type) {
-        case ActionTypes.NEW_STOCK_SET:
+        case ActionTypes.NEW_STOCK_SET: {
             const newStockSet = _.extend({
                 id: _.uniqueId('ss'),
                 available: []
             }, action.template);
             return [newStockSet, ...state];
+        }
+        case ActionTypes.IMPORT_STOCK_SET: {
+            const newStockSet = _.extend({
+                id: _.uniqueId('ss')
+            }, action.stockSet);
+            return [newStockSet, ...state];
+        }
+        case ActionTypes.CLEAR_ALL: {
+            return [];
+        }
         default:
             return state || defaultStockSets;
     }
@@ -67,12 +73,22 @@ function stockSets(state = null, action = {}) {
 
 function cutLists(state = null, action = {}) {
     switch (action.type) {
-        case ActionTypes.NEW_CUT_LIST:
+        case ActionTypes.NEW_CUT_LIST: {
             const newCutList = _.extend({
                 id: _.uniqueId('cl'),
                 necessary: []
             }, action.template);
             return [newCutList, ...state];
+        }
+        case ActionTypes.IMPORT_CUT_LIST: {
+            const newCutList = _.extend({
+                id: _.uniqueId('cl')
+            }, action.cutList);
+            return [newCutList, ...state];
+        }
+        case ActionTypes.CLEAR_ALL: {
+            return [];
+        }
         default:
             return state || defaultCutLists;
     }
@@ -98,6 +114,9 @@ function currentCutList(state = {}, action = {}) {
             });
             return cutList;
         }
+        case ActionTypes.CLEAR_ALL: {
+            return {};
+        }
         default:
             return state;
     }
@@ -107,6 +126,9 @@ function currentStockSet(state = {}, action = {}) {
     switch (action.type) {
         case ActionTypes.SELECT_STOCK_SET:
             return _.cloneDeep(action.stockSet);
+        case ActionTypes.CLEAR_ALL: {
+            return {};
+        }
         default:
             return state;
     }
@@ -125,18 +147,36 @@ function buy(state = { buy: null, stockSet: {}, cutList: {} }, action = {}) {
                 id: _.uniqueId("plan")
             });
         }
+        case ActionTypes.CLEAR_ALL: {
+            return { buy: null, stockSet: {}, cutList: {} };
+        }
+        default:
+            return state;
+    }
+}
+
+function exported(state = {}, action = {}) {
+    switch (action.type) {
+        case ActionTypes.EXPORT_ALL: {
+            return {
+                all: JSON.stringify(action.data)
+            };
+        }
+        case ActionTypes.CLEAR_ALL: {
+            return {};
+        }
         default:
             return state;
     }
 }
 
 const rootReducer = combineReducers({
-    nothing,
     stockSets,
     cutLists,
     currentStockSet,
     currentCutList,
     buy,
+    exported,
     router
 });
 
