@@ -27,16 +27,26 @@ const dutchChest = assignColor([
     newBoard({ quantity: 4, thickness: 0.75, width: 0.75, length: 4, name: "Catches" }),
     newBoard({ quantity: 2, thickness: 0.5, width: 2, length: 23.125, name: "Locks" })
 ]);
+const makeHavenBench = assignColor([
+    newBoard({ quantity: 6, thickness: 0.75, width: 4, length: 62, name: "Slat" }),
+    newBoard({ quantity: 6, thickness: 0.75, width: 4, length: 16.5, name: "Rail" }),
+    newBoard({ quantity: 6, thickness: 0.75, width: 4, length: 18, name: "Leg" })
+]);
 
 const defaultCutLists = [
     { id: _.uniqueId('cl'), name: 'Dutch Tool Chest', necessary: dutchChest },
-    { id: _.uniqueId('cl'), name: 'Frame Saw', necessary: frameSaw }
+    { id: _.uniqueId('cl'), name: 'Frame Saw', necessary: frameSaw },
+    { id: _.uniqueId('cl'), name: 'MakeHaven Bench', necessary: makeHavenBench }
 ];
 
 const defaultStockSets = [
-    { id: _.uniqueId('ss'), name: 'Home Depot - Select Pine', available: [
+    { id: _.uniqueId('ss'), name: 'Home Depot - Select Pine (8ft)', available: [
         newBoard({ thickness: 0.75, width: 11.25, length: 96 }),
+        newBoard({ thickness: 0.75, width: 4, length: 96 }),
         newBoard({ thickness: 0.5, width: 4, length: 36 })
+    ]},
+    { id: _.uniqueId('ss'), name: 'Home Depot - Select Pine (10ft)', available: [
+        newBoard({ thickness: 0.75, width: 4, length: 120 })
     ]},
     { id: _.uniqueId('ss'), name: 'Home Depot - Construction', available: [
         newBoard({ thickness: 1.75, width: 12, length: 96 }),
@@ -44,7 +54,8 @@ const defaultStockSets = [
     ]},
     { id: _.uniqueId('ss'), name: 'Hardwood', available: [
         newBoard({ thickness: 0.750, width: 6, length: 96 }),
-        newBoard({ thickness: 1.625, width: 6, length: 96 })
+        newBoard({ thickness: 1.625, width: 6, length: 96 }),
+        newBoard({ thickness:   0.5, width: 6, length: 24 })
     ]}
 ];
 
