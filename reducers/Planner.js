@@ -61,11 +61,11 @@ export class Planner {
         if (_.isUndefined(sourceStock)) {
             const availStock = this.getAvailableSourceStockFor(needed);
             if (_.isUndefined(availStock)) {
-                needed.unavailable = true;
+                parent.unavailable = true;
                 // console.log(needed);
                 return;
             }
-            needed.unavailable = false;
+            parent.unavailable = false;
             sourceStock = _.extend({
                 yields: [],
                 left: 0,
@@ -76,7 +76,7 @@ export class Planner {
             this.buy.push(sourceStock);
         }
         else {
-            needed.unavailable = false;
+            parent.unavailable = false;
             this.cutoffs = _.pull(this.cutoffs, sourceStock);
         }
 
