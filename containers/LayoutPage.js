@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 
 import {
     selectStockSet, selectCutList, planCuts, hoverOverBoards,
-    newCutList, newStockSet
+    newCutList, newStockSet,
+    clearAll, exportAll, importAnything, resetAll
 } from '../actions';
 
 import { CutListPicker } from '../components/CutListPicker';
@@ -11,6 +12,14 @@ import { CutListEditor } from '../components/CutListEditor';
 import { StockSetPicker } from '../components/StockSetPicker';
 import { StockSetEditor } from '../components/StockSetEditor';
 import { CutPlan } from '../components/CutPlan';
+import { ImportContainer } from '../components/ImportContainer';
+import { ExportContainer } from '../components/ExportContainer';
+
+const ImportExport = {
+    NONE: "NONE",
+    IMPORT: "IMPORT",
+    EXPORT: "EXPORT"
+};
 
 class LayoutPage extends Component {
     constructor(props) {
@@ -18,6 +27,9 @@ class LayoutPage extends Component {
         this.handlePickStockSet = this.handlePickStockSet.bind(this);
         this.handlePickCutList = this.handlePickCutList.bind(this);
         this.handleHoverOverBoards = this.handleHoverOverBoards.bind(this);
+        this.state = {
+            importExport: ImportExport.NONE
+        };
     }
 
     tryAndPlan(nextProps)  {
@@ -51,11 +63,69 @@ class LayoutPage extends Component {
         this.props.newCutList({ name: 'New Cut List' });
     }
 
+    handleClear() {
+        this.props.clearAll();
+    }
+
+    handleExport() {
+        this.props.exportAll();
+    }
+
+    handleReset() {
+        this.props.resetAll();
+    }
+
+    handleImport(data) {
+        if (data) {
+            this.props.importAnything(data);
+        }
+        this.updateImportExport(ImportExport.NONE);
+    }
+
+    renderImportExport() {
+        const { exported } = this.props;
+        const { importExport } = this.state;
+
+        if (importExport == ImportExport.EXPORT) {
+            return (<ExportContainer onHide={() => this.updateImportExport(ImportExport.NONE)} exported={exported} />);
+        }
+
+        if (importExport == ImportExport.IMPORT) {
+            return (<ImportContainer onHide={() => this.updateImportExport(ImportExport.NONE)} onImport={data => this.handleImport(data)} />);
+        }
+        return (<div/>);
+    }
+
+    handleStartExport() {
+        this.props.exportAll();
+
+        this.updateImportExport(ImportExport.EXPORT);
+    }
+
+    handleStartImport() {
+        this.updateImportExport(ImportExport.IMPORT);
+    }
+
+    updateImportExport(importExport) {
+        this.setState({
+            importExport: importExport
+        });
+    }
+
     render() {
         const { stockSets, cutLists, currentStockSet, currentCutList, buy } = this.props;
 
         return (
             <div className="container-fluid">
+                <div className="row">
+                    <div className="col-md-6">
+                        <button className="btn" onClick={() => this.handleStartExport()}>Export</button>
+                        <button className="btn" onClick={() => this.handleStartImport()}>Import</button>
+                        <button className="btn" onClick={() => this.handleClear()}>Clear</button>
+                        <button className="btn" onClick={() => this.handleReset()}>Reset</button>
+                    </div>
+                </div>
+                {this.renderImportExport()}
                 <div className="row">
                     <div className="col-md-6">
                         <center><h4>Cut Lists</h4></center>
@@ -95,6 +165,9 @@ LayoutPage.propTypes = {
     selectStockSet: PropTypes.func.isRequired,
     newStockSet: PropTypes.func.isRequired,
     newCutList: PropTypes.func.isRequired,
+    clearAll: PropTypes.func.isRequired,
+    exportAll: PropTypes.func.isRequired,
+    importAnything: PropTypes.func.isRequired,
     buy: PropTypes.object
 };
 
@@ -104,7 +177,8 @@ function mapStateToProps(state) {
         cutLists: state.cutLists,
         currentCutList: state.currentCutList,
         currentStockSet: state.currentStockSet,
-        buy: state.buy
+        buy: state.buy,
+        exported: state.exported
     };
 }
 
@@ -114,5 +188,9 @@ export default connect(mapStateToProps, {
     planCuts,
     hoverOverBoards,
     newStockSet,
-    newCutList
+    newCutList,
+    clearAll,
+    exportAll,
+    importAnything,
+    resetAll
 })(LayoutPage);

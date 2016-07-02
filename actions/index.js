@@ -87,7 +87,7 @@ export function newCutList(template) {
 
 export const EXPORT_ALL = 'exportAll';
 
-export function clearAll() {
+export function exportAll() {
     return (dispatch, getState) => {
         dispatch({
             type: EXPORT_ALL,
@@ -109,10 +109,22 @@ function importAnythingWeFind(dispatch, data) {
     if (_.isArray(data.cutLists)) {
         _.forEach(data.cutLists, item => importAnythingWeFind(dispatch, item));
     }
+    if (_.isArray(data.necessary)) {
+        dispatch({
+            type: IMPORT_CUT_LIST,
+            cutList: data
+        });
+    }
     if (_.isArray(data.cutList)) {
         dispatch({
             type: IMPORT_CUT_LIST,
             cutList: data.cutList
+        });
+    }
+    if (_.isArray(data.available)) {
+        dispatch({
+            type: IMPORT_STOCK_SET,
+            stockSet: data
         });
     }
     if (_.isArray(data.stockSet)) {
@@ -129,7 +141,7 @@ export function importAnything(data) {
             _.forEach(data, item => importAnythingWeFind(dispatch, item));
         }
         else {
-            importAnythingWeFind(dispatch, item)
+            importAnythingWeFind(dispatch, data)
         }
     };
 }
@@ -140,6 +152,16 @@ export function clearAll() {
     return (dispatch, getState) => {
         dispatch({
             type: CLEAR_ALL
+        });
+    };
+}
+
+export const RESET_ALL = 'resetAll';
+
+export function resetAll() {
+    return (dispatch, getState) => {
+        dispatch({
+            type: RESET_ALL
         });
     };
 }

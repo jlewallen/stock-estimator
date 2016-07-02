@@ -66,6 +66,9 @@ function stockSets(state = null, action = {}) {
         case ActionTypes.CLEAR_ALL: {
             return [];
         }
+        case ActionTypes.RESET_ALL: {
+            return defaultStockSets;
+        }
         default:
             return state || defaultStockSets;
     }
@@ -88,6 +91,9 @@ function cutLists(state = null, action = {}) {
         }
         case ActionTypes.CLEAR_ALL: {
             return [];
+        }
+        case ActionTypes.RESET_ALL: {
+            return defaultCutLists;
         }
         default:
             return state || defaultCutLists;
@@ -114,6 +120,9 @@ function currentCutList(state = {}, action = {}) {
             });
             return cutList;
         }
+        case ActionTypes.RESET_ALL: {
+            return {};
+        }
         case ActionTypes.CLEAR_ALL: {
             return {};
         }
@@ -126,6 +135,9 @@ function currentStockSet(state = {}, action = {}) {
     switch (action.type) {
         case ActionTypes.SELECT_STOCK_SET:
             return _.cloneDeep(action.stockSet);
+        case ActionTypes.RESET_ALL: {
+            return {};
+        }
         case ActionTypes.CLEAR_ALL: {
             return {};
         }
@@ -146,6 +158,9 @@ function buy(state = { buy: null, stockSet: {}, cutList: {} }, action = {}) {
             return _.extend(action.buy, {
                 id: _.uniqueId("plan")
             });
+        }
+        case ActionTypes.RESET_ALL: {
+            return { buy: null, stockSet: {}, cutList: {} };
         }
         case ActionTypes.CLEAR_ALL: {
             return { buy: null, stockSet: {}, cutList: {} };
