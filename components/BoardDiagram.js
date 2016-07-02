@@ -77,6 +77,7 @@ export class BoardDiagram extends Component {
         const { onHoverOverBoards } = this.props;
 
         if (!e) {
+            this.hovering = [];
             onHoverOverBoards([]);
             return;
         }
@@ -98,7 +99,9 @@ export class BoardDiagram extends Component {
     render() {
         return (
             <div>
-                <canvas ref="theCanvas" width='64px' height='512px' onMouseMove={(e) => this.handleMouseMove(e.nativeEvent)} onMouseOut={(e) => this.handleMouseMove(null)} />
+                <canvas ref="theCanvas" width='64px' height='512px'
+                    onMouseMove={(e) => this.handleMouseMove(e.nativeEvent)}
+                    onMouseOut={(e) => this.handleMouseMove(null)} />
             </div>
         );
     }
