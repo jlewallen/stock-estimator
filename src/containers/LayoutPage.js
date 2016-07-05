@@ -14,6 +14,7 @@ import { StockSetEditor } from '../components/StockSetEditor';
 import { CutPlan } from '../components/CutPlan';
 import { ImportContainer } from '../components/ImportContainer';
 import { ExportContainer } from '../components/ExportContainer';
+import { Help } from '../components/Help';
 
 const ImportExport = {
     NONE: "NONE",
@@ -82,20 +83,6 @@ class LayoutPage extends Component {
         this.updateImportExport(ImportExport.NONE);
     }
 
-    renderImportExport() {
-        const { exported } = this.props;
-        const { importExport } = this.state;
-
-        if (importExport == ImportExport.EXPORT) {
-            return (<ExportContainer onHide={() => this.updateImportExport(ImportExport.NONE)} exported={exported} />);
-        }
-
-        if (importExport == ImportExport.IMPORT) {
-            return (<ImportContainer onHide={() => this.updateImportExport(ImportExport.NONE)} onImport={data => this.handleImport(data)} />);
-        }
-        return (<div/>);
-    }
-
     handleStartExport() {
         this.props.exportAll();
 
@@ -110,6 +97,21 @@ class LayoutPage extends Component {
         this.setState({
             importExport: importExport
         });
+    }
+
+    // TOOD: Move to a component.
+    renderImportExport() {
+        const { exported } = this.props;
+        const { importExport } = this.state;
+
+        if (importExport == ImportExport.EXPORT) {
+            return (<ExportContainer onHide={() => this.updateImportExport(ImportExport.NONE)} exported={exported} />);
+        }
+
+        if (importExport == ImportExport.IMPORT) {
+            return (<ImportContainer onHide={() => this.updateImportExport(ImportExport.NONE)} onImport={data => this.handleImport(data)} />);
+        }
+        return (<div/>);
     }
 
     render() {

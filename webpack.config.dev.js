@@ -7,7 +7,7 @@ var config = Object.create(baseConfig);
 config.devtool = 'cheap-module-eval-source-map';
 config.entry = [
     'webpack-hot-middleware/client',
-    './index'
+    './src/index'
 ];
 config.plugins = [
     new webpack.optimize.OccurenceOrderPlugin(),

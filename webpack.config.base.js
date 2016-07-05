@@ -11,8 +11,10 @@ module.exports = {
         loaders: [{
             test: /\.jsx?$/,
             loaders: ['babel'],
-            exclude: /node_modules/,
-            include: __dirname
+            include: [
+                path.resolve(__dirname, "src"),
+                path.resolve(__dirname, "node_modules/flash-notification-react-redux")
+            ]
         }, {
             test: /\.scss$/,
             loaders: ['style', 'css', 'sass'],
@@ -26,4 +28,3 @@ module.exports = {
         includePaths: [path.resolve(__dirname, "./style")]
     }
 };
-

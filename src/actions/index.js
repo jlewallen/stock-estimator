@@ -163,5 +163,12 @@ export function resetAll() {
         dispatch({
             type: RESET_ALL
         });
+        dispatch({
+            type: 'GROWLER__SHOW',
+            growler: {
+                text: 'Please enter your JIRA url',
+                type: 'growler--success',
+            },
+        });
     };
 }

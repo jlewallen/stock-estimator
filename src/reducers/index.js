@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import * as ActionTypes from '../actions';
 import { routerStateReducer as router } from 'redux-router';
+
 import { combineReducers } from 'redux';
 
 import { assignColor } from './colors';

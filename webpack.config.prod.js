@@ -5,7 +5,7 @@ var baseConfig = require('./webpack.config.base');
 
 var config = Object.create(baseConfig);
 config.entry = [
-    './index'
+    './src/index'
 ];
 config.plugins = [
     new webpack.optimize.OccurenceOrderPlugin(),
