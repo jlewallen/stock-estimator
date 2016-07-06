@@ -5,6 +5,8 @@ import configureStore from './store/configureStore';
 
 const store = configureStore();
 
+require('./style/bootstrap/css/bootstrap.min.css');
+require('./style/font-awesome/css/font-awesome.min.css');
 require('./style/application.scss');
 
 render(
