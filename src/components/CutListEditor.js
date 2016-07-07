@@ -55,6 +55,10 @@ export class CutListEditor extends Component {
     render() {
         const { cutList } = this.props;
 
+        if (!cutList.id) {
+            return (<div></div>);
+        }
+
         return (
             <table className="table">
                 <thead>

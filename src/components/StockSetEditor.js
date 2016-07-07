@@ -46,6 +46,9 @@ export class StockSetEditor extends Component {
     render() {
         const { stockSet } = this.props;
 
+        if (!stockSet.id) {
+            return (<div></div>);
+        }
         return (
             <table className="table">
                 <thead>

@@ -6,6 +6,10 @@ export class CutPlan extends Component {
     render() {
         const { plan, onHoverOverBoards } = this.props;
 
+        if (!plan.id) {
+            return (<div></div>);
+        }
+
         return (
             <div>
                 <div className="row">
