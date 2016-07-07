@@ -156,7 +156,9 @@ class LayoutPage extends Component {
                         </div>
                     )}
                     float={(
-                        <CutPlan plan={buy} onHoverOverBoards={this.handleHoverOverBoards} />
+                        <div className="float">
+                            <CutPlan plan={buy} onHoverOverBoards={this.handleHoverOverBoards} />
+                        </div>
                     )}
                     />
             </div>
