@@ -15,6 +15,7 @@ import { CutPlan } from '../components/CutPlan';
 import { ImportContainer } from '../components/ImportContainer';
 import { ExportContainer } from '../components/ExportContainer';
 import { Help } from '../components/Help';
+import { SplitPane } from '../components/SplitPane';
 
 const ImportExport = {
     NONE: "NONE",
@@ -128,33 +129,36 @@ class LayoutPage extends Component {
                     </div>
                 </div>
                 {this.renderImportExport()}
-                <div className="row">
-                    <div className="col-md-6">
-                        <center><h4>Cut Lists</h4></center>
-                        <div className="row">
-                            <div className="col-md-11"><CutListPicker cutLists={cutLists} onSelected={this.handlePickCutList} /></div>
-                            <div className="col-md-1"><button className="btn btn-primary" onClick={() => this.handleNewCutList()}>New</button></div>
+                <SplitPane
+                    enabled={_.isString(buy.id)}
+                    left={(
+                        <div>
+                            <center><h4>Cut Lists</h4></center>
+                            <div className="row">
+                                <div className="col-md-11"><CutListPicker cutLists={cutLists} onSelected={this.handlePickCutList} /></div>
+                                <div className="col-md-1"><button className="btn btn-primary" onClick={() => this.handleNewCutList()}>New</button></div>
+                            </div>
+                            <div>
+                                <CutListEditor cutList={currentCutList} onChange={cutList => this.handlePickCutList(cutList)} />
+                            </div>
                         </div>
-                    </div>
-                    <div className="col-md-6">
-                        <center><h4>Stock Sets</h4></center>
-                        <div className="row">
-                            <div className="col-md-11"><StockSetPicker stockSets={stockSets} onSelected={this.handlePickStockSet} /></div>
-                            <div className="col-md-1"><button className="btn btn-primary" onClick={() => this.handleNewStockSet()}>New</button></div>
+                    )}
+                    right={(
+                        <div>
+                            <center><h4>Stock Sets</h4></center>
+                            <div className="row">
+                                <div className="col-md-11"><StockSetPicker stockSets={stockSets} onSelected={this.handlePickStockSet} /></div>
+                                <div className="col-md-1"><button className="btn btn-primary" onClick={() => this.handleNewStockSet()}>New</button></div>
+                            </div>
+                            <div>
+                                <StockSetEditor stockSet={currentStockSet} onChange={stockSet => this.handlePickStockSet(stockSet)} />
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-                <div className="row">
-                    <div className="col-md-6">
-                        {currentCutList.id ? <CutListEditor cutList={currentCutList} onChange={cutList => this.handlePickCutList(cutList)} /> : <div/>}
-                    </div>
-                    <div className="col-md-6">
-                        {currentStockSet.id ? <StockSetEditor stockSet={currentStockSet} onChange={stockSet => this.handlePickStockSet(stockSet)} /> : <div/>}
-                    </div>
-                </div>
-
-                {buy.id ? <CutPlan plan={buy} onHoverOverBoards={this.handleHoverOverBoards} /> : <div/>}
+                    )}
+                    float={(
+                        <CutPlan plan={buy} onHoverOverBoards={this.handleHoverOverBoards} />
+                    )}
+                    />
             </div>
         );
     }
