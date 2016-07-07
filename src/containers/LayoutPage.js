@@ -120,11 +120,11 @@ class LayoutPage extends Component {
         return (
             <div className="container-fluid">
                 <div className="row">
-                    <div className="col-md-6">
-                        <button className="btn" onClick={() => this.handleStartExport()}>Export</button>
-                        <button className="btn" onClick={() => this.handleStartImport()}>Import</button>
-                        <button className="btn" onClick={() => this.handleClear()}>Clear</button>
-                        <button className="btn" onClick={() => this.handleReset()}>Reset</button>
+                    <div className="col-md-6 btn-group">
+                        <button className="btn btn-info" onClick={() => this.handleStartExport()}>Export</button>
+                        <button className="btn btn-info" onClick={() => this.handleStartImport()}>Import</button>
+                        <button className="btn btn-warning" onClick={() => this.handleClear()}>Clear</button>
+                        <button className="btn btn-warning" onClick={() => this.handleReset()}>Reset</button>
                     </div>
                 </div>
                 {this.renderImportExport()}
@@ -133,14 +133,14 @@ class LayoutPage extends Component {
                         <center><h4>Cut Lists</h4></center>
                         <div className="row">
                             <div className="col-md-11"><CutListPicker cutLists={cutLists} onSelected={this.handlePickCutList} /></div>
-                            <div className="col-md-1"><button className="btn" onClick={() => this.handleNewCutList()}>New</button></div>
+                            <div className="col-md-1"><button className="btn btn-primary" onClick={() => this.handleNewCutList()}>New</button></div>
                         </div>
                     </div>
                     <div className="col-md-6">
                         <center><h4>Stock Sets</h4></center>
                         <div className="row">
                             <div className="col-md-11"><StockSetPicker stockSets={stockSets} onSelected={this.handlePickStockSet} /></div>
-                            <div className="col-md-1"><button className="btn" onClick={() => this.handleNewStockSet()}>New</button></div>
+                            <div className="col-md-1"><button className="btn btn-primary" onClick={() => this.handleNewStockSet()}>New</button></div>
                         </div>
                     </div>
                 </div>
