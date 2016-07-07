@@ -1,5 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 
+const LEFT = 'LEFT';
+const RIGHT = 'RIGHT';
+
 export class SplitPane extends Component {
     constructor() {
         super();
@@ -10,13 +13,13 @@ export class SplitPane extends Component {
 
     showRight() {
         this.setState({
-            side: 'right'
+            side: RIGHT
         });
     }
 
     showLeft() {
         this.setState({
-            side: 'left'
+            side: LEFT
         });
     }
 
@@ -27,10 +30,10 @@ export class SplitPane extends Component {
         return (
             <div className="row">
                 <div className="col-md-6" onMouseEnter={() => this.showLeft()}>
-                    {side == 'right' && enabled ? float : left}
+                    {side == RIGHT && enabled ? float : left}
                 </div>
                 <div className="col-md-6" onMouseEnter={() => this.showRight()}>
-                    {side == 'left' && enabled ? float : right}
+                    {side == LEFT && enabled ? float : right}
                 </div>
             </div>
         )
