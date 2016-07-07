@@ -8,10 +8,10 @@ export class CutListPicker extends Component {
     }
 
     render() {
-        const { cutLists, onSelected } = this.props;
+        const { cutLists, onSelected, selected } = this.props;
 
         return (
-            <select className="form-control" onChange={(e) => onSelected(_(cutLists).filter({ id: e.target.value }).first())}>
+            <select className="form-control" onChange={(e) => onSelected(_(cutLists).filter({ id: e.target.value }).first())} defaultValue={selected ? selected.id : null}>
                 <option value=""></option>
                 {cutLists.map(cl => (<option key={cl.id} value={cl.id}>{cl.name}</option>))}
             </select>
@@ -21,5 +21,6 @@ export class CutListPicker extends Component {
 
 CutListPicker.propTypes = {
     cutLists: PropTypes.array.isRequired,
-    onSelected: PropTypes.func.isRequired
+    onSelected: PropTypes.func.isRequired,
+    selected: PropTypes.object
 };

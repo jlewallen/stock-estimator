@@ -135,7 +135,7 @@ class LayoutPage extends Component {
                         <div>
                             <center><h4>Cut Lists</h4></center>
                             <div className="row">
-                                <div className="col-md-11"><CutListPicker cutLists={cutLists} onSelected={this.handlePickCutList} /></div>
+                                <div className="col-md-11"><CutListPicker cutLists={cutLists} onSelected={this.handlePickCutList} selected={currentCutList} /></div>
                                 <div className="col-md-1"><button className="btn btn-primary" onClick={() => this.handleNewCutList()}>New</button></div>
                             </div>
                             <div>
@@ -147,7 +147,7 @@ class LayoutPage extends Component {
                         <div>
                             <center><h4>Stock Sets</h4></center>
                             <div className="row">
-                                <div className="col-md-11"><StockSetPicker stockSets={stockSets} onSelected={this.handlePickStockSet} /></div>
+                                <div className="col-md-11"><StockSetPicker stockSets={stockSets} onSelected={this.handlePickStockSet} selected={currentStockSet} /></div>
                                 <div className="col-md-1"><button className="btn btn-primary" onClick={() => this.handleNewStockSet()}>New</button></div>
                             </div>
                             <div>

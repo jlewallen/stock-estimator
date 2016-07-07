@@ -8,10 +8,12 @@ export class StockSetPicker extends Component {
     }
 
     render() {
-        const { stockSets, onSelected } = this.props;
+        const { stockSets, onSelected, selected } = this.props;
+
+        console.log(selected);
 
         return (
-            <select className="form-control" onChange={(e) => onSelected(_(stockSets).filter({ id: e.target.value }).first())}>
+            <select className="form-control" onChange={(e) => onSelected(_(stockSets).filter({ id: e.target.value }).first())} defaultValue={selected ? selected.id : null}>
                 <option value=""></option>
                 {stockSets.map(ss => (<option key={ss.id} value={ss.id}>{ss.name}</option>))}
             </select>
@@ -21,5 +23,6 @@ export class StockSetPicker extends Component {
 
 StockSetPicker.propTypes = {
     stockSets: PropTypes.array.isRequired,
-    onSelected: PropTypes.func.isRequired
+    onSelected: PropTypes.func.isRequired,
+    selected: PropTypes.object
 };
